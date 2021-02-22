@@ -1,12 +1,5 @@
-const nodeList  =  document.getElementsByClassName('alt');
-
-Array.prototype.forEach.call (nodeList, function () {
-    console.log('more info');
-} );
-
-
 class Project {
-    constructor(li) {
+    constructor() {
         this.showInfo();
     };
 
@@ -29,11 +22,12 @@ class ActivateProject extends Project {
     };
 
     activeBtn() {this.li.querySelector('button:last-of-type').onclick = () => {
-        console.log('finished to active');
+        console.log('activ');
         this.li.remove();
-        document.querySelector('#active-projects ul').append(this.li);
-        this.li.querySelector('button:last-of-type').innerHTML = "Finish";
-        this.li.querySelector('button:last-of-type').classList.add('finish-btn');
+        document.querySelector('#finished-projects ul').append(this.li);
+        this.li.querySelector('button:last-of-type').innerHTML = "Activate";
+        this.li.querySelector('button:last-of-type').classList.add('activate-btn');
+        new ProjectList('finished');      
         };        
 
     };
@@ -48,11 +42,12 @@ class FinishProject extends Project {
     };
 
     finishBtn() {this.li.querySelector('button:last-of-type').onclick = () => {
-        console.log('active to finished');
+        console.log('finish');
         this.li.remove();
-        document.querySelector('#finished-projects ul').append(this.li);
-        this.li.querySelector('button:last-of-type').innerHTML = "Activate";
-        this.li.querySelector('button:last-of-type').classList.add('activate-btn');
+        document.querySelector('#active-projects ul').append(this.li);
+        this.li.querySelector('button:last-of-type').innerHTML = "Finish";
+        this.li.querySelector('button:last-of-type').classList.add('finish-btn');
+        new ProjectList('active');
         };        
 
     };
@@ -63,6 +58,11 @@ class ProjectList {
         for (const li of document.querySelectorAll(`#${type}-projects li`)) {
             console.log(`${type}`);
             new Project(li);
+            if(`${type}` === 'active'){
+                new ActivateProject(li);
+            }else{
+                new FinishProject(li);
+            };
         };
     };
 };
