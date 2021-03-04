@@ -1,15 +1,25 @@
 class Project {
-    constructor() {
-        this.showInfo();
+    constructor(li) {
+        this.li = li;
+        this.button = this.li.getElementsByClassName('alt')[0];
+        this.button.addEventListener('click',this.showInfo); 
     };
 
     showInfo() {
-        let elements = document.querySelectorAll('.alt');
-        for (let i = 0; i < elements.length; i++) {
-            elements[i].onclick = function(){
-                console.log('show info');
-            };
-        };  
+        const li = document.querySelectorAll('li');
+        li.forEach(li => {
+            let div = document.createElement('div');
+            div.innerHTML = li.dataset.extraInfo; 
+            div.setAttribute('class', 'card');
+            li.append(div);
+            console.log(div);
+            div.addEventListener('click', () => {
+                div.parentNode.removeChild(div);
+            })
+            div.style.marginTop = "10px";
+            div.style.padding = "10px";
+        })
+           
     };
 
 };
