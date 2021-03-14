@@ -5,19 +5,15 @@ class Project {
         this.button.addEventListener('click',this.showInfo); 
     };
 
-    showInfo(e) {
-        // console.log(e);  
+    showInfo(e) { 
         let p = e.path[1].id;
-        // console.log(p);
         if (p === "p1") {
             let j = 1;
             const showLi = document.getElementById(`p${j}`);
-            // console.log(showLi); 
             let div = document.createElement('div');
             div.innerHTML = showLi.dataset.extraInfo; 
             div.setAttribute('class', 'card');
             showLi.append(div);
-            // console.log(div);
             div.addEventListener('click', () => {
                 div.parentNode.removeChild(div);
             })
@@ -26,12 +22,10 @@ class Project {
         } else if (p === "p2") {
             let j = 2;
             const showLi = document.getElementById(`p${j}`);
-            // console.log(showLi);
             let div = document.createElement('div');
             div.innerHTML = showLi.dataset.extraInfo; 
             div.setAttribute('class', 'card');
             showLi.append(div);
-            // console.log(div);
             div.addEventListener('click', () => {
                 div.parentNode.removeChild(div);
             })
@@ -40,12 +34,10 @@ class Project {
         } else if (p === "p3") {
             let j = 3; 
             const showLi = document.getElementById(`p${j}`);
-            // console.log(showLi);
             let div = document.createElement('div');
             div.innerHTML = showLi.dataset.extraInfo; 
             div.setAttribute('class', 'card');
             showLi.append(div);
-            // console.log(div);
             div.addEventListener('click', () => {
                 div.parentNode.removeChild(div);
             })
@@ -65,7 +57,6 @@ class ActivateProject extends Project {
     };
 
     activeBtn() {this.li.querySelector('button:last-of-type').onclick = () => {
-        console.log('activ');
         this.li.remove();
         document.querySelector('#finished-projects ul').append(this.li);
         this.li.querySelector('button:last-of-type').innerHTML = "Activate";
@@ -82,12 +73,9 @@ class FinishProject extends Project {
         super(li);
         this.li = li;
         this.finishBtn();
-        this.dragItems();
-        this.dropZones();
     };
 
     finishBtn() {this.li.querySelector('button:last-of-type').onclick = () => {
-        console.log('finish'); 
         this.li.remove();
         document.querySelector('#active-projects ul').append(this.li);
         this.li.querySelector('button:last-of-type').innerHTML = "Finish";
@@ -95,74 +83,11 @@ class FinishProject extends Project {
         new ProjectList('active');
         };        
     };
-
-    dragItems() {
-        const li = document.querySelectorAll('li');
-        li.forEach(dragItem => {
-            dragItem.addEventListener('dragstart', handlerDragstart)
-            dragItem.addEventListener('dragend', handlerDragend)
-            dragItem.addEventListener('drag', handlerDrag)
-        })
-
-        function handlerDragstart(event) {
-            console.log(event);
-            setTimeout(() => {
-                this.classList.add('hide');
-            },0);
-            event.dataTransfer.setData("dragItem", this.dataset.extraInfo);
-            console.log('dragstart', this);
-        }
-
-        function handlerDragend(event) {
-            console.log('dragend', this);
-            this.classList.remove('hide');
-        }
-
-        function handlerDrag(event) {
-            console.log('drag');
-        }
-
-    };
-
-    dropZones() {
-        const ul = document.querySelectorAll('ul');
-        ul.forEach(dropZone => {
-            dropZone.addEventListener('dragenter', handlerDragenter)
-            dropZone.addEventListener('dragleave', handlerDragleave)
-            dropZone.addEventListener('dragover', handlerDragover)
-            dropZone.addEventListener('drop', handlerDrop)
-        })
-
-        function handlerDragenter(event) {
-            console.log('dragenter', this);
-            this.classList.add('hovered');
-            event.preventDefault();
-        }
-
-        function handlerDragleave(event) {
-            console.log('dragleave', this);
-            this.classList.remove('hovered');
-        }
-
-        function handlerDragover(event) {
-            // console.log('dragover', this);
-            event.preventDefault();
-        }
-
-        function handlerDrop(event) {
-            let dragItem = event.dataTransfer.getData("dragItem");
-            console.log(event.dataTransfer.getData("dragItem"));
-            // console.log('drop', this);
-            this.append(dragItem);
-            this.classList.remove('hovered');
-        }
-    }
 };
 
 class ProjectList {
     constructor(type) {
         for (const li of document.querySelectorAll(`#${type}-projects li`)) {
-            console.log(`${type}`);
             new Project(li);
             if(`${type}` === 'active'){
                 new ActivateProject(li);
@@ -181,6 +106,10 @@ class App {
 };
 
 App.init();
+
+
+
+
 
 
 // const dragAndDrop = () => {
