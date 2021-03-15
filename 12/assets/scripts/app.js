@@ -69,7 +69,6 @@ class Project {
             this.classList.remove('hovered');
         }
     }
-
 };
 
 class ActivateProject extends Project {
