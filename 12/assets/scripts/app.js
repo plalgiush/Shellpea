@@ -8,9 +8,8 @@ class Project {
 
     showInfo(event) { 
         let p = event.path[1].id;
-        if (p === "p1") {
-            let j = 1;
-            const showLi = document.getElementById(`p${j}`);
+        if (p === "p1" || p === "p2" || p === "p3") {
+            const showLi = document.getElementById(`${p}`);
             let div = document.createElement('div');
             div.innerHTML = showLi.dataset.extraInfo; 
             div.setAttribute('class', 'card');
@@ -20,32 +19,7 @@ class Project {
             })
             div.style.marginTop = "10px";
             div.style.padding = "10px";
-        } else if (p === "p2") {
-            let j = 2;
-            const showLi = document.getElementById(`p${j}`);
-            let div = document.createElement('div');
-            div.innerHTML = showLi.dataset.extraInfo; 
-            div.setAttribute('class', 'card');
-            showLi.append(div);
-            div.addEventListener('click', () => {
-                div.parentNode.removeChild(div);
-            })
-            div.style.marginTop = "10px";
-            div.style.padding = "10px"; 
-        } else if (p === "p3") {
-            let j = 3; 
-            const showLi = document.getElementById(`p${j}`);
-            let div = document.createElement('div');
-            div.innerHTML = showLi.dataset.extraInfo; 
-            div.setAttribute('class', 'card');
-            showLi.append(div);
-            div.addEventListener('click', () => {
-                div.parentNode.removeChild(div);
-            })
-            div.style.marginTop = "10px";
-            div.style.padding = "10px";    
-        }
-        
+         }        
     }
 
     dragAndDrop() {

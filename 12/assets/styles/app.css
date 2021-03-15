@@ -130,5 +130,5 @@ button:active {
 }
 
 .hovered {
-  background-color: chartreuse;
+  background: rgb(188, 255, 121);
 }
