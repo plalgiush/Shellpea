@@ -3,10 +3,11 @@ class Project {
         this.li = li;
         this.button = this.li.getElementsByClassName('alt')[0];
         this.button.addEventListener('click',this.showInfo); 
+        this.dragAndDrop();
     };
 
-    showInfo(e) { 
-        let p = e.path[1].id;
+    showInfo(event) { 
+        let p = event.path[1].id;
         if (p === "p1") {
             let j = 1;
             const showLi = document.getElementById(`p${j}`);
@@ -45,6 +46,54 @@ class Project {
             div.style.padding = "10px";    
         }
         
+    }
+
+    dragAndDrop() {
+
+        const li = document.querySelectorAll('li');
+        const ul = document.querySelectorAll('ul');
+    
+        li.forEach(dragItem => {
+            dragItem.addEventListener('dragstart', handlerDragstart)
+            dragItem.addEventListener('dragend', handlerDragend)
+        })
+    
+        function handlerDragstart(event) {
+            setTimeout(() => {
+                this.classList.add('hide');
+            },0);
+            event.dataTransfer.setData("dragItem", this.id);
+        }
+    
+        function handlerDragend(event) {
+            this.classList.remove('hide');
+        }   
+    
+        ul.forEach(dropZone => {
+            dropZone.addEventListener('dragenter', handlerDragenter)
+            dropZone.addEventListener('dragleave', handlerDragleave)
+            dropZone.addEventListener('dragover', handlerDragover)
+            dropZone.addEventListener('drop', handlerDrop)
+        })
+    
+        function handlerDragenter(event) {
+            this.classList.add('hovered');
+            event.preventDefault();
+        }
+    
+        function handlerDragleave(event) {
+            this.classList.remove('hovered');
+        }
+    
+        function handlerDragover(event) {
+            event.preventDefault();
+        }
+    
+        function handlerDrop(event) {
+            const dragItem = event.dataTransfer.getData("dragItem");
+            event.target.append(document.getElementById(dragItem));
+            this.classList.remove('hovered');
+        }
     }
 
 };
@@ -106,75 +155,3 @@ class App {
 };
 
 App.init();
-
-
-
-
-
-
-// const dragAndDrop = () => {
-
-//     const li = document.querySelectorAll('li');
-//     const ul = document.querySelectorAll('ul');
-
-//     li.forEach(dragItem => {
-//         dragItem.addEventListener('dragstart', handlerDragstart)
-//         dragItem.addEventListener('dragend', handlerDragend)
-//         dragItem.addEventListener('drag', handlerDrag)
-//     })
-
-//     function handlerDragstart(event) {
-//         console.log(event);
-//         setTimeout(() => {
-//             this.classList.add('hide');
-//         },0);
-//         event.dataTransfer.setData("dragItem", this.dataset.extraInfo);
-//         console.log('dragstart', this);
-//     }
-
-//     function handlerDragend(event) {
-//         console.log('dragend', this);
-//         this.classList.remove('hide');
-//     }
-
-//     function handlerDrag(event) {
-//         console.log('drag');
-//     }
-
-
-
-    
-//     ul.forEach(dropZone => {
-//         dropZone.addEventListener('dragenter', handlerDragenter)
-//         dropZone.addEventListener('dragleave', handlerDragleave)
-//         dropZone.addEventListener('dragover', handlerDragover)
-//         dropZone.addEventListener('drop', handlerDrop)
-//     })
-
-//     function handlerDragenter(event) {
-//         console.log('dragenter', this);
-//         this.classList.add('hovered');
-//         event.preventDefault();
-//     }
-
-//     function handlerDragleave(event) {
-//         console.log('dragleave', this);
-//         this.classList.remove('hovered');
-//     }
-
-//     function handlerDragover(event) {
-//         // console.log('dragover', this);
-//         event.preventDefault();
-//     }
-
-//     function handlerDrop(event) {
-//         let dragItem = event.dataTransfer.getData("dragItem");
-//         console.log(event.dataTransfer.getData("dragItem"));
-//         // console.log('drop', this);
-//         this.append(dragItem);
-//         this.classList.remove('hovered');
-//     }
-
-// }
-
-// dragAndDrop();
